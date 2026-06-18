@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Secure Password Generator</title>
+
+<meta name="description" content="Generate strong and secure passwords instantly. Free, fast and privacy-friendly password generator.">
+
+<meta name="keywords" content="password generator,password tool,secure password,random password">
+
+<meta name="author" content="xxhhaox">
+
+<meta property="og:title" content="Secure Password Generator">
+<meta property="og:description" content="Generate strong passwords instantly.">
+<meta property="og:type" content="website">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+<h1>🔐 Secure Password Generator</h1>
+
+<p class="subtitle">
+Generate strong passwords directly in your browser
+</p>
+
+<div class="password-box">
+
+<input id="password" readonly>
+
+<button onclick="copyPassword()">
+Copy
+</button>
+
+</div>
+
+<div class="strength">
+
+<div id="strengthBar"></div>
+
+</div>
+
+<p id="strengthText">
+Strength: Medium
+</p>
+
+<div class="controls">
+
+<label>
+Length:
+<span id="lengthValue">16</span>
+</label>
+
+<input
+type="range"
+id="length"
+min="6"
+max="64"
+value="16"
+oninput="updateLength()">
+
+<label>
+<input type="checkbox" id="upper" checked>
+Uppercase
+</label>
+
+<label>
+<input type="checkbox" id="lower" checked>
+Lowercase
+</label>
+
+<label>
+<input type="checkbox" id="number" checked>
+Numbers
+</label>
+
+<label>
+<input type="checkbox" id="symbol" checked>
+Symbols
+</label>
+
+</div>
+
+<button class="generate" onclick="generatePassword()">
+Generate Password
+</button>
+
+<footer>
+
+Made with ❤️ by xxhhaox
+
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
