@@ -1,86 +1,86 @@
-const passwordInput=document.getElementById("password");
+const passwordInput = document.getElementById("password");
 
-function updateLength(){
-document.getElementById("lengthValue").innerText=
-document.getElementById("length").value;
+function updateLength() {
+    document.getElementById("lengthValue").innerText =
+        document.getElementById("length").value;
 }
 
-function generatePassword(){
+function generatePassword() {
 
-let chars="";
+    let chars = "";
 
-if(document.getElementById("upper").checked)
-chars+="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (document.getElementById("upper").checked)
+        chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-if(document.getElementById("lower").checked)
-chars+="abcdefghijklmnopqrstuvwxyz";
+    if (document.getElementById("lower").checked)
+        chars += "abcdefghijklmnopqrstuvwxyz";
 
-if(document.getElementById("number").checked)
-chars+="0123456789";
+    if (document.getElementById("number").checked)
+        chars += "0123456789";
 
-if(document.getElementById("symbol").checked)
-chars+="!@#$%^&*()_+-=[]{}";
+    if (document.getElementById("symbol").checked)
+        chars += "!@#$%^&*()_+-=[]{}";
 
-if(chars===""){
-alert("Select at least one option");
-return;
+    if (chars === "") {
+        alert("Select at least one option");
+        return;
+    }
+
+    const length =
+        document.getElementById("length").value;
+
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+        password += chars.charAt(
+            Math.floor(Math.random() * chars.length)
+        );
+    }
+
+    passwordInput.value = password;
+
+    checkStrength(password);
 }
 
-const length=
-document.getElementById("length").value;
+function checkStrength(password) {
 
-let password="";
+    let score = 0;
 
-for(let i=0;i<length;i++){
-password+=chars.charAt(
-Math.floor(Math.random()*chars.length)
-);
+    if (password.length >= 8) score++;
+    if (password.length >= 12) score++;
+
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    const bar = document.getElementById("strengthBar");
+    const text = document.getElementById("strengthText");
+
+    if (score <= 2) {
+        bar.style.width = "25%";
+        bar.style.background = "red";
+        text.innerText = "Strength: Weak";
+    }
+    else if (score <= 4) {
+        bar.style.width = "60%";
+        bar.style.background = "orange";
+        text.innerText = "Strength: Medium";
+    }
+    else {
+        bar.style.width = "100%";
+        bar.style.background = "limegreen";
+        text.innerText = "Strength: Strong";
+    }
 }
 
-passwordInput.value=password;
+function copyPassword() {
 
-checkStrength(password);
-}
+    navigator.clipboard.writeText(
+        passwordInput.value
+    );
 
-function checkStrength(password){
-
-let score=0;
-
-if(password.length>=8) score++;
-if(password.length>=12) score++;
-if(/[A-Z]/.test(password)) score++;
-if(/[a-z]/.test(password)) score++;
-if(/[0-9]/.test(password)) score++;
-if(/[^A-Za-z0-9]/.test(password)) score++;
-
-const bar=document.getElementById("strengthBar");
-const text=document.getElementById("strengthText");
-
-if(score<=2){
-bar.style.width="25%";
-bar.style.background="red";
-text.innerText="Strength: Weak";
-}
-else if(score<=4){
-bar.style.width="60%";
-bar.style.background="orange";
-text.innerText="Strength: Medium";
-}
-else{
-bar.style.width="100%";
-bar.style.background="limegreen";
-text.innerText="Strength: Strong";
-}
-}
-
-function copyPassword(){
-
-navigator.clipboard.writeText(
-passwordInput.value
-);
-
-alert("Password copied");
+    alert("Password copied");
 }
 
 generatePassword();
-```
