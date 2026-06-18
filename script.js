@@ -1,7 +1,7 @@
 const passwordInput = document.getElementById("password");
 
 function updateLength() {
-    document.getElementById("lengthValue").innerText =
+    document.getElementById("lengthValue").textContent =
         document.getElementById("length").value;
 }
 
@@ -19,15 +19,17 @@ function generatePassword() {
         chars += "0123456789";
 
     if (document.getElementById("symbol").checked)
-        chars += "!@#$%^&*()_+-=[]{}";
+        chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-    if (chars === "") {
-        alert("Select at least one option");
+    if (!chars) {
+        alert("Please select at least one character type.");
         return;
     }
 
-    const length =
-        document.getElementById("length").value;
+    const length = parseInt(
+        document.getElementById("length").value,
+        10
+    );
 
     let password = "";
 
@@ -59,28 +61,30 @@ function checkStrength(password) {
 
     if (score <= 2) {
         bar.style.width = "25%";
-        bar.style.background = "red";
-        text.innerText = "Strength: Weak";
-    }
-    else if (score <= 4) {
+        bar.style.background = "#da3633";
+        text.textContent = "Strength: Weak";
+    } else if (score <= 4) {
         bar.style.width = "60%";
-        bar.style.background = "orange";
-        text.innerText = "Strength: Medium";
-    }
-    else {
+        bar.style.background = "#d29922";
+        text.textContent = "Strength: Medium";
+    } else {
         bar.style.width = "100%";
-        bar.style.background = "limegreen";
-        text.innerText = "Strength: Strong";
+        bar.style.background = "#2ea043";
+        text.textContent = "Strength: Strong";
     }
 }
 
 function copyPassword() {
 
-    navigator.clipboard.writeText(
-        passwordInput.value
-    );
+    if (!passwordInput.value) return;
 
-    alert("Password copied");
+    navigator.clipboard.writeText(passwordInput.value)
+        .then(() => {
+            alert("Password copied!");
+        })
+        .catch(() => {
+            alert("Copy failed.");
+        });
 }
 
 generatePassword();
